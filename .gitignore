@@ -392,6 +392,16 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks,visualstudiocode,pycharm,windows,macos,linux
 
+# Jinsik Lee
+.venv/
+llm/
+pdfs/
+faiss_index/
+.gitignore
+ss.csv
+notebooks_for_test/
+
+
 
 data/
 *_vectorstore/
