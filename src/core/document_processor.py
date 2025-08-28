@@ -2,16 +2,17 @@ from pathlib import Path
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyMuPDFLoader
+from langchain_core.documents import Document
 
 
 class DocumentProcessor:
-    def __init__(self, file_path: Path, chunk_size=1000, chunk_overlap=50):
+    def __init__(self, file_path: Path, chunk_size: int=1000, chunk_overlap: int=50):
         self.file_path = file_path
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
 
-    def load_and_split(self):
-        """PDF 로드 후 청크 분할 + source/page 메타데이터 정규화"""
+    def load(self) -> list[Document]:
+        """PDF 로드 및 source/page 메타데이터 정규화"""
         loader = PyMuPDFLoader(str(self.file_path))  # Path 객체를 문자열로 변환
         docs = loader.load()
 
@@ -32,6 +33,10 @@ class DocumentProcessor:
                 # 페이지 정보가 없다면 1로 기본값
                 doc.metadata["page"] = 1
 
+        return docs
+    
+    def split(self, docs: list[Document]) -> list[Document]:
+        """문서 청크 분할"""
         splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.chunk_size,
             chunk_overlap=self.chunk_overlap
