@@ -1,6 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List, Dict, Literal
-
+from typing import Dict, List, Literal
 
 # 모델 타입 정의
 ModelType = Literal["llm", "embedding"]

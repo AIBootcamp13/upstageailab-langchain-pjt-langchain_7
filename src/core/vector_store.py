@@ -1,6 +1,6 @@
-from typing import List
 import json
 from pathlib import Path
+from typing import List
 
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document

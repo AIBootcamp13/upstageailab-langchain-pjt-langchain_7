@@ -1,6 +1,7 @@
-# llm/chains.py
-from langchain_core.runnables import RunnableLambda, RunnableBranch
 from typing import Dict, Any
+
+from langchain_core.runnables import RunnableLambda, RunnableBranch
+
 
 # 각각의 체인은 main.py에서 초기화 후 주입 가능
 def build_dispatcher_chain(

@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 # .env 파일을 모듈 로드 시점에 바로 로드합니다.

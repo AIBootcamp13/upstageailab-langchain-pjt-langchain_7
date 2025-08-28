@@ -1,11 +1,10 @@
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_upstage import UpstageEmbeddings
+from langchain_community.chat_models import ChatAnthropic, ChatOllama
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.chat_models import ChatAnthropic
-from langchain_upstage import ChatUpstage
-from langchain_community.chat_models import ChatOllama
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_upstage import ChatUpstage, UpstageEmbeddings
 
-from config.models import AVAILABLE_MODELS, AVAILABLE_MODELS_EMBEDDINGS, check_model_name
+from config.models import (AVAILABLE_MODELS, AVAILABLE_MODELS_EMBEDDINGS,
+                           check_model_name)
 
 
 class LLMManager:

@@ -1,9 +1,9 @@
-import time
 import json
+import time
 from pathlib import Path
 
-from tqdm import tqdm
 from openai import RateLimitError
+from tqdm import tqdm
 
 from core.document_processor import DocumentProcessor
 from core.vector_store import VectorStoreManager
@@ -53,7 +53,7 @@ class PDFProcessor:
 
     def _update_vector_store(self, chunks: list) -> None:
         manager = VectorStoreManager(self.embeddings, store_path=self.store_path)
-        batch_size = 10
+        batch_size = 50
         max_retries = 5
         for i in tqdm(range(0, len(chunks), batch_size), desc="Updating vector store"):
             batch = chunks[i:i + batch_size]
@@ -72,7 +72,7 @@ class PDFProcessor:
                     wait_time = 30 * (2 ** attempt)  # 지수 백오프: 30초, 60초, 120초, 240초, 480초
                     print(f"Rate limit hit. Retrying in {wait_time // 60} minutes {wait_time % 60} seconds... (Attempt {attempt + 1}/{max_retries})")
                     time.sleep(wait_time)
-            time.sleep(15)  # 배치 간 대기
+            time.sleep(5)  # 배치 간 대기
 
     def _save_processed_files(self) -> None:
         """처리된 PDF 파일 집합을 processed_files.json에 저장"""

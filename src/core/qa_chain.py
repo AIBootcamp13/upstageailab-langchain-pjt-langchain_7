@@ -1,13 +1,14 @@
-from typing import Dict, Any, List
 from pathlib import Path
+from typing import Any, Dict, List
 
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough, RunnableLambda, RunnableParallel, RunnableSequence
 from langchain.memory import ConversationBufferMemory
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import (RunnableLambda, RunnableParallel,
+                                      RunnablePassthrough, RunnableSequence)
 from langchain_core.vectorstores.base import VectorStoreRetriever
 
-from utils import format_docs_with_citations, load_prompt, is_broad_question
 from core import VectorStoreManager
+from utils import format_docs_with_citations, is_broad_question, load_prompt
 
 
 class QAChain:

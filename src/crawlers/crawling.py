@@ -1,13 +1,14 @@
-import requests
-from bs4 import BeautifulSoup
+import logging
 import time
 from datetime import datetime
-from pypdf import PdfReader, PdfWriter
-import logging
-from tqdm import tqdm
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
 from pathlib import Path
+
+import requests
+from bs4 import BeautifulSoup
+from pypdf import PdfReader, PdfWriter
+from requests.adapters import HTTPAdapter
+from tqdm import tqdm
+from urllib3.util.retry import Retry
 
 # 로깅 설정
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

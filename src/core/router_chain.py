@@ -1,8 +1,8 @@
-from langchain.prompts import PromptTemplate
-from langchain.chat_models import ChatOpenAI
-from langchain.output_parsers import StructuredOutputParser, ResponseSchema
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chains.summarize import load_summarize_chain
+from langchain.chat_models import ChatOpenAI
+from langchain.output_parsers import ResponseSchema, StructuredOutputParser
+from langchain.prompts import PromptTemplate
 
 ROUTER_PROMPT_TEMPLATE = """
 당신은 사용자의 질문을 QA Engine에서 처리할 Intent를 분류하는 분류기입니다.
@@ -112,8 +112,9 @@ class RouterChain:
 # 6. 예시 실행 (단독 실행 시 테스트)
 # ======================
 if __name__ == "__main__":
-    from langchain.llms.fake import FakeListLLM
     import json
+
+    from langchain.llms.fake import FakeListLLM
 
     # --- 테스트를 위한 Mock 객체 생성 ---
     # 예상 질문에 대한 LLM의 가짜 응답 목록

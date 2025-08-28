@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from langchain_core.prompts import PromptTemplate
 from jinja2 import Environment, FileSystemLoader
+from langchain_core.prompts import PromptTemplate
 
 
 def load_prompt(file_path: Path, template_dir: Path = Path("prompts")) -> PromptTemplate:
