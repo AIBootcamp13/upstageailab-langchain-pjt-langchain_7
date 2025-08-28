@@ -1,0 +1,9 @@
+{% extends "base.jinja" %}
+{% block content %}
+Current Question: {question}
+Context:
+{context}
+
+만약 질문이 '어떤 기업 분석해줄 수 있어?'와 같은 광범위한 경우, '현재 {{num_companies}}개 기업 자료 있어요. 기업 이름이나 업종 알려주세요!'로 답변하여, 사용자가 상세한 정보를 제공하도록 유도하세요.
+Answer step-by-step: 1. 요약, 2. 세부 설명, 3. 결론.
+{% endblock %}

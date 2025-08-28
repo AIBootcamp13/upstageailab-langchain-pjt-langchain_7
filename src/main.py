@@ -4,9 +4,8 @@ from langchain.memory import ConversationBufferMemory
 from langchain_core.runnables import RunnableLambda
 
 from config import load_environment, configure_langsmith
-from core import LLMManager, VectorStoreManager, QAChain, RouterChain
-from core.downstream_chains import build_dispatcher_chain
-from utils import process_pdfs_in_folder
+from core import LLMManager, VectorStoreManager, QAChain, RouterChain, build_dispatcher_chain
+from utils import PDFProcessor
 
 
 # %%
@@ -17,6 +16,7 @@ configure_langsmith()
 # TODO: 나중에는 yaml로 옮기든 파라미터 넣어주는 식으로 바꾸든지 해야함.
 llm_provider = "upstage"  # openai / claude / upstage / ollama
 embedding_provider = "upstage" # openai / huggingface / upstage
+vector_store_path = Path("../upstage_vectorstore")
 
 # %%
 # 2. LLM/Embedding 설정
@@ -28,21 +28,16 @@ llm_manager = LLMManager(
     temperature=0
 )
 
-# 3. 벡터스토어 준비 (없으면 생성, 있으면 로드)
-vector_store_path = Path("upstage_vectorstore")
-if not vector_store_path.exists():
-    print(f"'{vector_store_path}'를 찾을 수 없어 새로 생성합니다...")
-    process_pdfs_in_folder(
-        folder_path=Path("data"),
-        embeddings=llm_manager.get_embeddings(),
-        store_path=vector_store_path,
-        chunk_size=1000,
-        chunk_overlap=100
-    )
-else:
-    print(f"기존 벡터스토어 '{vector_store_path}'를 사용합니다.")
-
-# 4. 벡터스토어 로드 및 Retriever 생성
+# 3. 폴더 안에 있는 문서 처리
+pdf_processor = PDFProcessor(
+    folder_path=Path("../data"),       # PDF 폴더 경로
+    embeddings=llm_manager.get_embeddings(),
+    store_path=vector_store_path,
+    chunk_size=1000,
+    chunk_overlap=100
+)
+retriever = pdf_processor.process()
+# 4. 벡터스토어 불러오기
 vector_manager = VectorStoreManager(llm_manager.get_embeddings(), store_path=vector_store_path)
 retriever = vector_manager.load_store()
 

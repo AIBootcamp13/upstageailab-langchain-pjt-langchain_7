@@ -1,20 +1,20 @@
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_upstage import UpstageEmbeddings
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.chat_models import ChatAnthropic  # Claude
-from langchain_upstage import ChatUpstage   # Upstage
-from langchain_community.chat_models import ChatOllama    # 로컬 LLM 예시
+from langchain_community.chat_models import ChatAnthropic
+from langchain_upstage import ChatUpstage
+from langchain_community.chat_models import ChatOllama
 
 from config.models import AVAILABLE_MODELS, AVAILABLE_MODELS_EMBEDDINGS, check_model_name
 
 
 class LLMManager:
-    def __init__(self, llm_provider="upstage", embedding_provider="openai", **kwargs):
+    def __init__(self, llm_provider: str="upstage", embedding_provider: str="openai", **kwargs):
         self.llm_provider = llm_provider
         self.embedding_provider = embedding_provider
         self.kwargs = kwargs
 
-    def get_llm(self):
+    def get_llm(self) -> None:
         check_model_name(self.llm_provider, self.kwargs.get("model_name", "-"), AVAILABLE_MODELS)
         if self.llm_provider == "openai":
             return ChatOpenAI(model_name=self.kwargs.get("model_name", "gpt-4o"),
@@ -31,7 +31,7 @@ class LLMManager:
         else:
             raise ValueError(f"지원하지 않는 LLM provider: {self.llm_provider}")
 
-    def get_embeddings(self):
+    def get_embeddings(self) -> None:
         check_model_name(self.embedding_provider, self.kwargs.get("embedding_name", "-"), AVAILABLE_MODELS_EMBEDDINGS)
         if self.embedding_provider == "openai":
             return OpenAIEmbeddings(model=self.kwargs.get("embedding_name", "text-embedding-3-small"))

@@ -1,0 +1,14 @@
+{% extends "base.jinja" %}
+{% block content %}
+Chat History:
+{{chat_history | default('없음')}}
+
+Current Question: {question}
+Context:
+{context}
+
+Answer step-by-step: 1. 요약, 2. 세부 설명, 3. 결론.
+{% if broad_question %}
+현재 {{num_companies}}개 기업 자료 있어요. 기업 이름이나 업종 알려주세요!
+{% endif %}
+{% endblock %}
